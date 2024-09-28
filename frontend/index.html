@@ -54,8 +54,16 @@
           body: JSON.stringify({ message })
         });
 
+        if (!res.ok) {
+          // Handle response error
+          const errorData = await res.json();
+          responseDiv.textContent = `Error: ${errorData.error || 'Unknown error occurred'}`;
+          return;
+        }
+
         const data = await res.json();
         responseDiv.textContent = JSON.stringify(data, null, 2);
+        document.getElementById('message').value = ''; // Clear the input field
       } catch (error) {
         responseDiv.textContent = `Error: ${error.message}`;
       }
