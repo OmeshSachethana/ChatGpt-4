@@ -7,7 +7,7 @@ const options = {
 	port: null,
 	path: '/conversationgpt4-2',
 	headers: {
-		'x-rapidapi-key': process.env.RAPIDAPI_KEY,
+		'x-rapidapi-key': process.env.API_KEY,
 		'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
 		'Content-Type': 'application/json'
 	}
