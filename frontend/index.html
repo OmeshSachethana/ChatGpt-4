@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat with GPT-4.2</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    .chat-container {
+      max-width: 500px;
+      margin: auto;
+    }
+    #response {
+      white-space: pre-wrap;
+      background-color: #f3f3f3;
+      padding: 15px;
+      margin-top: 20px;
+    }
+    input, button {
+      padding: 10px;
+      width: 100%;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <h1>Chat with GPT-4.2</h1>
+    <input type="text" id="message" placeholder="Type your message here..." />
+    <button onclick="sendMessage()">Send</button>
+
+    <div id="response"></div>
+  </div>
+
+  <script>
+    async function sendMessage() {
+      const message = document.getElementById('message').value;
+      const responseDiv = document.getElementById('response');
+
+      if (!message) {
+        responseDiv.textContent = "Please enter a message!";
+        return;
+      }
+
+      try {
+        const res = await fetch('http://localhost:5000/api/send-message', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message })
+        });
+
+        const data = await res.json();
+        responseDiv.textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        responseDiv.textContent = `Error: ${error.message}`;
+      }
+    }
+  </script>
+</body>
+</html>
